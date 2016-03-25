@@ -3,59 +3,66 @@
 	<title>Lattice paths</title>
 	<script>
 		var table=[];
-		var size=20;
-		for(var i=0;i<size;i++){
+		var size=6;
+		var b=new Array();
+		for(var i=0;i<=size;i++){
 			var b=new Array();
-			for(var j=0;j<size;j++){
+			for(var j=0;j<=size;j++){
 				b[j]={down:1,right:1};
+				if(i>=size){
+					b[j].down=0;
+				}
+				if(j>=size){
+					b[j].right=0;
+				}
 			}
-			table[i]=b;
-			b=null;
+			table.push(b);
 		}
 		var count=0;
 		i=0;
 		j=0;
+		var c=0;
 		findWay();
 		console.log(count);
 		function findWay(){
-			if(i==20&&j==20){
-				count++;
-				if(table[i-1][j].down==0){
+			if(table[i][j].down==0&&table[i][j].right==0){
+				if(i==size&&j==size){
+					count++;
+				}
+				if(i>0&&table[i-1][j].down==0){
 					table[i][j].down=1;
 					table[i][j].right=1;
+					if(i>=size){
+						table[i][j].down=0;
+					}
+					if(j>=size){
+						table[i][j].right=0;
+					}
 					i--;
 					findWay();
-				}else if(table[i][j-1].right==0){
+				}else if(j>0&&table[i][j-1].right==0){
 					table[i][j].right=1;
 					table[i][j].down=1;
+					if(i>=size){
+						table[i][j].down=0;
+					}
+					if(j>=size){
+						table[i][j].right=0;
+					}
 					j--;
 					findWay();
 				}
 			}
-			console.log(i+"   "+table[i]);
-			if(i<size&&j<size&&table[i][j].down==1){
+			if(table[i][j].down==1){
 				table[i][j].down=0;
 				i++;
-				if((i>=size)&&table[i-1][j].right==0){
-					i--;
-					table[i][j].down=1;
-					table[i][j].right=1;
-					i--;
-				}
 				findWay();
 			}
-			else if(i<size&&j<size&&table[i][j].right==1){
+			else if(table[i][j].right==1){
 				table[i][j].right=0;
 				j++;
-				if((j>=size)&&table[i][j].down==0){
-					j--;
-					table[i][j].right=1;
-					table[i][j].down=1;
-					j--;
-				}
 				findWay();
 			}
-			
 		}
 	</script>
 </head>
