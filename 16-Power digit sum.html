@@ -1,0 +1,44 @@
+<html>
+<head>
+	<title>Power digit sum</title>
+</head>
+<script>
+getPowerSum(2,1000);
+function getPowerSum(base,power){
+	var data=[1];
+	var index=0;
+    var num;
+	for(var i=1;i<10000;i++){
+		data[i]=0;
+	}
+	length=power;
+	var add=0;//进位标志。
+	for(var i=0;i<length;i++){
+		for(var j=0;j<=index;j++){
+			data[j]=data[j]*base+add;
+			add=0;
+			if(data[j]>9){
+				data[j]-=10;
+				add=1;
+			}
+		}
+		if(add!=0){
+			data[j]++;
+			add=0;
+			index++;
+		}
+		num="";
+		for(var k=0;k<=index;k++){
+			num+=data[k];
+		}
+	}
+	var sum=0;
+	for(var i=0;i<=index;i++){
+		sum+=data[i];
+	}
+	console.log(sum);
+}
+	</script>
+<body>
+</body>
+</html>

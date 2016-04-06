@@ -1,0 +1,29 @@
+<html>
+<head>
+	<title>Lattice paths</title>
+	<script>
+		var table=[];
+		var t;
+		for(var i=0;i<21;i++){
+			t=new Array();
+			
+			for(var j=0;j<21;j++){
+				if(i==0){
+					t[j]=1;
+				}
+				if(i>0){
+					table[i][j]+=table[i-1][j];
+				}
+				if(i!=0&&j>0){
+					table[i][j]+=table[i][j-1];
+				}
+			}
+			table[i]=t;
+		}
+		console.log(table[20][20]);
+	</script>
+</head>
+<body>
+
+</body>
+</html>
